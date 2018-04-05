@@ -1,0 +1,11 @@
+{
+  "name": "camelcase-object-keys-deep",
+  "version": "0.1.0",
+  "description": "Convert object parameters from snake case to camel case. Browser friendly.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "Nathan Birrell",
+  "license": "ISC"
+}

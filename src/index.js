@@ -1,27 +1,18 @@
 // Utilities inspired by Underscore.js
 
 const toString = Object.prototype.toString;
-const isFunction = (obj) => {
-  return typeof(obj) === 'function';
-};
 const isObject = (obj) => {
   return obj === Object(obj);
 };
 const isArray = (obj) => {
   return toString.call(obj) == '[object Array]';
 };
-const isDate = (obj) => {
-  return toString.call(obj) == '[object Date]';
-};
-const isBoolean = (obj) => {
-  return toString.call(obj) == '[object Boolean]';
-};
 const isNumber = (obj) => {
   obj = obj - 0;
   return obj === obj;
 };
 
-const convertStringToCamelCase = (string) => {
+const convertSnakeCaseToCamelCase = (string) => {
   if (isNumber(string)) {
     return string;
   }
@@ -32,8 +23,25 @@ const convertStringToCamelCase = (string) => {
   return string.substr(0, 1).toLowerCase() + string.substr(1);
 };
 
+const convertObjectKeys = (input) => {
+  const output = {};
+  Object.keys(input).forEach(function (key) {
+    const camelCaseKey = convertSnakeCaseToCamelCase(key);
+    output[camelCaseKey] = keysToCamelCase(input[key]);
+  });
+  return output;
+};
+
+const convertArrayItems = (input) => {
+  const output = [];
+  input.forEach(function(item) {
+    output.push(keysToCamelCase(item));
+  });
+  return output;
+}
+
 const keysToCamelCase = (input) => {
-  if (!isObject(input) || !isArray(input)) {
+  if (!(isObject(input) || isArray(input))) {
     return input;
   }
 
@@ -42,20 +50,20 @@ const keysToCamelCase = (input) => {
   if (isObject(input)) {
     // handle object keys
     result = {};
-    result = convertKeys(input);
+    result = convertObjectKeys(input);
   }
 
   if (isArray(input)) {
     // handle array items
     result = [];
-    result = convertItems(input);
+    result = convertArrayItems(input);
   }
 
   return result;
-}
+};
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = keysToCamelCase;
 } else {
-  global.keysToCamelCase = keysToCamelCase;
+  window.keysToCamelCase = keysToCamelCase;
 }

@@ -4,8 +4,13 @@
   "description": "Convert object parameters from snake case to camel case. Browser friendly.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "build": "./node_modules/.bin/babel src -d lib"
   },
   "author": "Nathan Birrell",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
 }
